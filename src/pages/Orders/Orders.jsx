@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { assets } from "../../assets/assets";
 import axios from "axios";
+import { API_BASE_URL } from "../../util/constants";
 
 //import { fetchUserOrders } from "../../service/orderService";
 
@@ -10,13 +11,13 @@ const Orders = () => {
     //const response = await fetchUserOrders(token);
     //setData(response);
 
-    const response = await axios.get("http://localhost:8081/api/orders/all");
+    const response = await axios.get(`${API_BASE_URL}/orders/all`);
     setData(response.data);
   };
 
   const updateStatus = async (event,orderId) => {
     try {
-      const response = await axios.patch(`http://localhost:8081/api/orders/status/${orderId}?status=${event.target.value}`);
+      const response = await axios.patch(`${API_BASE_URL}/orders/status/${orderId}?status=${event.target.value}`);
       if(response.status === 200){
         await fetchOrders();
       }
